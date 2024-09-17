@@ -8,7 +8,7 @@ ARG TARGETARCH
 ENV ACESTREAM_VERSION=3.1.80.0
 
 RUN 
-    wget -q https://download.acestream.media/android/core.web/stable/AceStreamCore-$ACESTREAM_VERSION-armv8_64.apk -O /tmp/AceStreamCore.apk \
+    wget -q https://download.acestream.media/android/core.web/stable/AceStreamCore-$ACESTREAM_VERSION-armv8_64.apk -O /tmp/AceStreamCore.apk
     
 
 RUN cd /tmp/ && \
