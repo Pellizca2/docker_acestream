@@ -7,21 +7,15 @@ RUN apt-get update && \
 ARG TARGETARCH
 ENV ACESTREAM_VERSION=3.1.80.0
 
-RUN if [ $TARGETARCH = "amd64" ]; then \
-      wget -q https://download.acestream.media/android/core.web/stable/AceStreamCore-$ACESTREAM_VERSION-x86_64.apk -O /tmp/AceStreamCore.apk; \
-    elif [ $TARGETARCH = "arm64" ]; then \
-      wget -q https://download.acestream.media/android/core.web/stable/AceStreamCore-$ACESTREAM_VERSION-armv8_64.apk -O /tmp/AceStreamCore.apk; \
-    fi   
+RUN 
+    wget -q https://download.acestream.media/android/core.web/stable/AceStreamCore-$ACESTREAM_VERSION-armv8_64.apk -O /tmp/AceStreamCore.apk \
+    
 
 RUN cd /tmp/ && \
     unzip -q AceStreamCore.apk -d acestream_bundle && \
-    if [ $TARGETARCH = "amd64" ]; then \
-      unzip -q acestream_bundle/assets/engine/x86_64_private_py.zip -d acestream_engine && \
-      unzip -q acestream_bundle/assets/engine/x86_64_private_res.zip -d acestream_engine; \
-    elif [ $TARGETARCH = "arm64" ]; then \
-      unzip -q acestream_bundle/assets/engine/arm64-v8a_private_py.zip -d acestream_engine && \
-      unzip -q acestream_bundle/assets/engine/arm64-v8a_private_res.zip -d acestream_engine; \
-    fi && \
+          unzip -q acestream_bundle/assets/engine/arm64-v8a_private_py.zip -d acestream_engine && \
+      unzip -q acestream_bundle/assets/engine/arm64-v8a_private_res.zip -d acestream_engine && \
+
     unzip -q acestream_bundle/assets/engine/public_res.zip -d acestream_engine && \
     unzip -q acestream_engine/python/lib/stdlib.zip -d acestream_engine/python/lib/python3.8/ && \
     mv acestream_engine/python/lib/modules/* acestream_engine/python/lib/python3.8/site-packages/ && \
